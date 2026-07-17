@@ -85,21 +85,27 @@ footer a{color:var(--accent)}
 .modal p,.modal li{font-size:.85rem;color:var(--text2);line-height:1.6;margin-bottom:.5rem}
 .modal ul{padding-left:1.2rem}
 .modal-close{position:absolute;top:1rem;right:1rem;background:none;border:none;color:var(--text);font-size:1.3rem;cursor:pointer}
+
+.lang-toggle{display:flex;gap:.3rem;justify-content:center;margin-top:.8rem}
+.lang-toggle button{background:var(--surface);border:1px solid var(--border);color:var(--text2);padding:.25rem .7rem;border-radius:6px;cursor:pointer;font-size:.78rem;font-weight:600;transition:all .2s}
+.lang-toggle button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+[data-i18n]{transition:opacity .15s}
 </style>
 </head>
 <body>
 
 <div class="hero">
   <h1><span class="icon">🌍</span> amiExilAI</h1>
-  <p class="tagline">Companion AI pentru diasporă — sfaturi verificate cu două motoare, în limba ta</p>
-  <div class="badge"><span class="dot"></span> Grok + DeepSeek dual-engine</div>
+  <p class="tagline" data-i18n="tagline">Companion AI pentru diasporă — sfaturi verificate cu două motoare, în limba ta</p>
+  <div class="badge"><span class="dot"></span> Grok + DeepSeek dual-engine
+  <div class="lang-toggle"><button onclick="switchLang('en')" id="langEn" class="active">EN</button><button onclick="switchLang('ro')" id="langRo">RO</button></div>
 </div>
 
 <div class="cards">
-  <div class="card"><div class="ci">📋</div><h3>Documente & Vize</h3><p>Rezidență, permise de muncă, reunificare familială, apostile, conversie permis auto</p></div>
-  <div class="card"><div class="ci">💰</div><h3>Taxe & Finanțe</h3><p>Dubla impunere, rezidență fiscală, transfer pensii, alocații transfrontaliere</p></div>
-  <div class="card"><div class="ci">🏥</div><h3>Sănătate</h3><p>CEAM/EHIC, înregistrare medic, urgențe, transfer rețete, sănătate mintală</p></div>
-  <div class="card"><div class="ci">📚</div><h3>Educație & Copii</h3><p>Înscriere școală, recunoaștere diplomă, educație bilingvă, limba maternă</p></div>
+  <div class="card"><div class="ci">📋</div><h3 data-i18n="card1_h">Documente & Vize</h3><p>Rezidență, permise de muncă, reunificare familială, apostile, conversie permis auto</p></div>
+  <div class="card"><div class="ci">💰</div><h3 data-i18n="card2_h">Taxe & Finanțe</h3><p>Dubla impunere, rezidență fiscală, transfer pensii, alocații transfrontaliere</p></div>
+  <div class="card"><div class="ci">🏥</div><h3 data-i18n="card3_h">Sănătate</h3><p>CEAM/EHIC, înregistrare medic, urgențe, transfer rețete, sănătate mintală</p></div>
+  <div class="card"><div class="ci">📚</div><h3 data-i18n="card4_h">Educație & Copii</h3><p>Înscriere școală, recunoaștere diplomă, educație bilingvă, limba maternă</p></div>
 </div>
 
 <div class="demo-preview">
@@ -115,24 +121,24 @@ footer a{color:var(--accent)}
 </div>
 
 <div class="chat-section">
-  <h2>Întreabă despre viața în diasporă</h2>
+  <h2 data-i18n="chat_h2">Întreabă despre viața în diasporă</h2>
   <div class="chat-box">
     <div id="messages">
       <div class="msg system">🌍 amiExilAI — sfaturi verificate cu două motoare AI. 5 întrebări gratuite/zi.<br><em>Nu sunt avocat. Pentru cazuri specifice, consultă un specialist autorizat.</em></div>
     </div>
     <div class="input-row">
-      <textarea id="userInput" rows="1" maxlength="2000" placeholder="ex. Cum îmi recunosc diploma de licență în Spania?"></textarea>
-      <button id="sendBtn" onclick="sendMessage()">Trimite</button>
+      <textarea id="userInput" rows="1" maxlength="2000" placeholder="ex. Cum îmi recunosc diploma de licență în Spania?" data-i18n="placeholder"></textarea>
+      <button id="sendBtn" onclick="sendMessage()" data-i18n="send">Trimite</button>
     </div>
   </div>
   <p class="free-note">Gratuit: 5 întrebări/zi &nbsp;|&nbsp; <strong>Pro:</strong> nelimitat</p>
-  <div class="upgrade-row"><button class="upgrade-btn" onclick="upgrade()">🌍 Upgrade la Pro — €9.99/lună</button></div>
+  <div class="upgrade-row"><button class="upgrade-btn" onclick="upgrade()"><span data-i18n="upgrade">🌍 Upgrade la Pro — €9.99/lună</span></button></div>
 </div>
 
 <div class="features">
-  <h2>Cum te poate ajuta amiExilAI</h2>
+  <h2 data-i18n="feat_h2">Cum te poate ajuta amiExilAI</h2>
   <div class="feat-grid">
-    <div class="feat"><h3>📋 Legal & Administrativ</h3><p>Vize, rezidență, reunificare, consulat, apostile, vot din străinătate</p></div>
+    <div class="feat"><h3></h3><p>Vize, rezidență, reunificare, consulat, apostile, vot din străinătate</p></div>
     <div class="feat"><h3>💰 Taxe & Finanțe</h3><p>Dubla impunere, cont bancar, transfer bani, pensii, asigurări sociale UE</p></div>
     <div class="feat"><h3>🏥 Sănătate</h3><p>CEAM, medic de familie, urgențe, rețete, sănătate mintală în expatriere</p></div>
     <div class="feat"><h3>📚 Educație</h3><p>Școală copii, recunoaștere diplome ENIC-NARIC, echivalări, bilingvism</p></div>
@@ -142,7 +148,7 @@ footer a{color:var(--accent)}
 </div>
 
 <div class="compliance">
-  <p>AI conform cu legislația europeană</p>
+  <p data-i18n="compliance_p">AI conform cu legislația europeană</p>
   <div class="compliance-badges">
     <span class="cbadge" onclick="showModal('euai')">🇪🇺 EU AI Act</span>
     <span class="cbadge" onclick="showModal('gdpr')">🛡️ GDPR</span>
@@ -212,6 +218,29 @@ terms:`<h2>📄 Termeni și Condiții</h2><p><strong>amiExilAI</strong> — actu
 };
 function showModal(k){document.getElementById('modalContent').innerHTML=modals[k]||'';document.getElementById('modalOverlay').classList.add('active')}
 function closeModal(){document.getElementById('modalOverlay').classList.remove('active')}
+
+
+// i18n
+const T = {"tagline": {"en": "AI Companion for Diaspora & Life Abroad — dual-engine verified", "ro": "Companion AI pentru diasporă — sfaturi verificate cu două motoare, în limba ta"}, "card1_h": {"en": "Documents & Visas", "ro": "Documente & Vize"}, "card1_p": {"en": "Residence, work permits, family reunification, apostille, driving license conversion", "ro": "Rezidență, permise de muncă, reunificare familială, apostile, conversie permis auto"}, "card2_h": {"en": "Taxes & Finance", "ro": "Taxe & Finanțe"}, "card2_p": {"en": "Double taxation, tax residency, pension transfers, cross-border benefits", "ro": "Dubla impunere, rezidență fiscală, transfer pensii, alocații transfrontaliere"}, "card3_h": {"en": "Healthcare", "ro": "Sănătate"}, "card3_p": {"en": "EHIC/CEAM, GP registration, emergencies, prescription transfers, mental health", "ro": "CEAM/EHIC, înregistrare medic, urgențe, transfer rețete, sănătate mintală"}, "card4_h": {"en": "Education & Children", "ro": "Educație & Copii"}, "card4_p": {"en": "School enrollment, diploma recognition, bilingual education, mother tongue", "ro": "Înscriere școală, recunoaștere diplomă, educație bilingvă, limba maternă"}, "chat_h2": {"en": "Ask about life abroad", "ro": "Întreabă despre viața în diasporă"}, "sys_msg": {"en": "amiExilAI — dual-engine verified diaspora advice. 5 free questions/day.", "ro": "amiExilAI — sfaturi verificate cu două motoare AI. 5 întrebări gratuite/zi."}, "placeholder": {"en": "e.g. How do I get my Romanian degree recognized in Spain?", "ro": "ex. Cum îmi recunosc diploma de licență în Spania?"}, "send": {"en": "Send", "ro": "Trimite"}, "free_note": {"en": "Free: 5 questions/day", "ro": "Gratuit: 5 întrebări/zi"}, "pro": {"en": "Pro:", "ro": "Pro:"}, "unlimited": {"en": "unlimited", "ro": "nelimitat"}, "upgrade": {"en": "Upgrade to Pro — €9.99/mo", "ro": "Upgrade la Pro — €9.99/lună"}, "feat_h2": {"en": "How amiExilAI can help you", "ro": "Cum te poate ajuta amiExilAI"}, "compliance_p": {"en": "EU regulation-aware AI", "ro": "AI conform cu legislația europeană"}, "footer_disc": {"en": "amiExilAI is an AI education tool — not a substitute for lawyers, tax advisors, or immigration specialists.", "ro": "amiExilAI este un instrument AI educativ — nu înlocuiește un avocat, consilier fiscal sau specialist în imigrare."}};
+let currentLang = localStorage.getItem('amiexilai_lang') || 'en';
+
+function switchLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('amiexilai_lang', lang);
+  document.getElementById('langEn').classList.toggle('active', lang === 'en');
+  document.getElementById('langRo').classList.toggle('active', lang === 'ro');
+  document.documentElement.lang = lang === 'ro' ? 'ro' : 'en';
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (T[key] && T[key][lang]) {
+      if (el.tagName === 'TEXTAREA' || el.tagName === 'INPUT') el.placeholder = T[key][lang];
+      else el.textContent = T[key][lang];
+    }
+  });
+}
+
+// Apply saved language on load
+document.addEventListener('DOMContentLoaded', () => { if (currentLang !== 'en') switchLang(currentLang); });
 </script>
 </body>
 </html>
