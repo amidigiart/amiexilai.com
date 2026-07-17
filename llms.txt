@@ -1,0 +1,27 @@
+# amiExilAI
+> Companion AI pentru Diaspora & Viața în Străinătate — dual-engine verified
+
+## What is amiExilAI?
+amiExilAI is a dual-engine AI companion for Romanian diaspora and expat families. Two AI models (Grok + DeepSeek) cross-verify every response — advice on documents, taxes, healthcare, education, and integration you can trust.
+
+## Features
+- Legal & administrative (residence, work permits, family reunification, consular)
+- Taxes & finance (double taxation, tax residency, pension transfers, social security EU)
+- Healthcare (EHIC/CEAM, GP registration, emergencies, prescriptions)
+- Education (school enrollment, diploma recognition ENIC-NARIC, bilingual education)
+- Cultural integration (language, customs, homesickness, community building)
+- Return to Romania (re-integration, property, business, pension transfer)
+
+## Architecture
+- Dual-engine: Grok 4.5 (xAI) + DeepSeek
+- Anti-confabulation: trigram-cosine concordance >= 0.45 required
+- Stateless: queries processed in real-time, never stored
+
+## Compliance
+- EU AI Act (Reg. 2024/1689) Art. 50 — limited-risk, full transparency
+- GDPR (Reg. 2016/679) — minimal data, no query storage
+
+## Links
+- Website: https://amiexilai.com
+- API: https://amiexilai-api-production.up.railway.app
+- Contact: hello@amiexilai.com

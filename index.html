@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>amiExilAI — Companion AI pentru Diaspora &amp; Viața în Străinătate</title>
+<meta name="description" content="Companion AI pentru românii din diasporă. Sfaturi verificate dual-engine despre documente, taxe, sănătate, școală, integrare — în română și engleză.">
+<meta name="keywords" content="diaspora, români în străinătate, exil, emigrare, documente, vize, taxe, dubla impunere, AI companion">
+<meta property="og:title" content="amiExilAI — Companion AI pentru Diaspora">
+<meta property="og:description" content="Dual-engine AI pentru românii din diasporă — documente, taxe, sănătate, integrare.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://amiexilai.com">
+<link rel="canonical" href="https://amiexilai.com">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0c0a10;--surface:#161220;--surface2:#1e1830;--text:#ede9f5;--text2:#b0a8c4;--accent:#8b5cf6;--warm:#f59e0b;--border:#2a2240;--radius:14px;--font:'Segoe UI',system-ui,-apple-system,sans-serif}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;min-height:100vh}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+
+.hero{text-align:center;padding:4rem 1.5rem 3rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-40%;left:-20%;width:140%;height:140%;background:radial-gradient(ellipse at 50% 30%,rgba(139,92,246,.12) 0%,rgba(245,158,11,.06) 40%,transparent 65%);pointer-events:none}
+.hero h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:800;margin-bottom:.5rem;position:relative}
+.hero h1 .icon{font-size:clamp(2.2rem,5vw,3.4rem)}
+.hero .tagline{font-size:clamp(1.05rem,2.5vw,1.3rem);color:var(--text2);max-width:640px;margin:0 auto 1rem;line-height:1.7}
+.badge{display:inline-flex;align-items:center;gap:.4rem;background:var(--surface);border:1px solid var(--border);padding:.35rem .9rem;border-radius:20px;font-size:.8rem;color:var(--accent)}
+.badge .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;max-width:800px;margin:2rem auto;padding:0 1.5rem}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.3rem;text-align:left;transition:border-color .2s}
+.card:hover{border-color:var(--accent)}
+.card .ci{font-size:1.6rem;margin-bottom:.5rem}
+.card h3{font-size:.95rem;margin-bottom:.3rem;color:var(--text)}
+.card p{font-size:.8rem;color:var(--text2);line-height:1.5}
+
+.demo-preview{max-width:700px;margin:1.5rem auto 2.5rem;padding:0 1.5rem}
+.demo-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.2rem;font-size:.85rem;color:var(--text2);line-height:1.8}
+.demo-box .v{color:var(--accent)}
+.demo-box .w{color:var(--warm)}
+.demo-box .g{color:#22c55e}
+
+.chat-section{max-width:700px;margin:0 auto 2rem;padding:0 1.5rem}
+.chat-section h2{text-align:center;font-size:1.3rem;margin-bottom:1rem}
+.chat-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+#messages{padding:1.2rem;min-height:120px;max-height:420px;overflow-y:auto}
+.msg{margin-bottom:1rem;padding:.8rem 1rem;border-radius:10px;font-size:.9rem;line-height:1.7;max-width:88%;animation:fadeIn .3s}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.msg.assistant{background:var(--surface2);border:1px solid var(--border);color:var(--text)}
+.msg.user{background:var(--accent);color:#fff;margin-left:auto;text-align:right}
+.msg.system{background:transparent;border:1px dashed var(--border);color:var(--text2);text-align:center;max-width:100%;font-size:.85rem}
+.meta{font-size:.7rem;color:var(--text2);margin-top:.4rem;opacity:.7}
+.input-row{display:flex;gap:.5rem;padding:.8rem;border-top:1px solid var(--border)}
+#userInput{flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:.65rem 1rem;color:var(--text);font-size:.9rem;font-family:var(--font);outline:none;resize:none}
+#userInput:focus{border-color:var(--accent)}
+#sendBtn{background:var(--accent);color:#fff;border:none;border-radius:10px;padding:.65rem 1.3rem;font-weight:600;cursor:pointer;font-size:.9rem;transition:background .2s}
+#sendBtn:hover{background:#7c3aed}
+#sendBtn:disabled{opacity:.5;cursor:not-allowed}
+
+.free-note{text-align:center;font-size:.8rem;color:var(--text2);margin:1rem 0}
+.upgrade-row{text-align:center;margin:1rem 0 2rem}
+.upgrade-btn{display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,var(--accent),var(--warm));color:#fff;font-weight:700;padding:.7rem 1.8rem;border-radius:10px;border:none;cursor:pointer;font-size:.95rem;transition:transform .15s}
+.upgrade-btn:hover{transform:scale(1.03);text-decoration:none}
+
+.features{max-width:800px;margin:0 auto 3rem;padding:0 1.5rem}
+.features h2{text-align:center;font-size:1.3rem;margin-bottom:1.5rem}
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
+.feat{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.2rem}
+.feat h3{font-size:.9rem;margin-bottom:.3rem}
+.feat p{font-size:.8rem;color:var(--text2)}
+
+.compliance{max-width:700px;margin:0 auto 2rem;padding:0 1.5rem;text-align:center}
+.compliance-badges{display:flex;flex-wrap:wrap;justify-content:center;gap:.8rem;margin-top:.8rem}
+.cbadge{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:.4rem .9rem;font-size:.75rem;color:var(--text2);cursor:pointer;transition:border-color .2s}
+.cbadge:hover{border-color:var(--accent)}
+
+footer{text-align:center;padding:2rem 1.5rem;color:var(--text2);font-size:.75rem;border-top:1px solid var(--border)}
+footer a{color:var(--accent)}
+
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1000;align-items:center;justify-content:center;padding:1rem}
+.modal-overlay.active{display:flex}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);max-width:600px;width:100%;max-height:80vh;overflow-y:auto;padding:2rem;position:relative}
+.modal h2{margin-bottom:1rem;font-size:1.2rem}
+.modal p,.modal li{font-size:.85rem;color:var(--text2);line-height:1.6;margin-bottom:.5rem}
+.modal ul{padding-left:1.2rem}
+.modal-close{position:absolute;top:1rem;right:1rem;background:none;border:none;color:var(--text);font-size:1.3rem;cursor:pointer}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1><span class="icon">🌍</span> amiExilAI</h1>
+  <p class="tagline">Companion AI pentru diasporă — sfaturi verificate cu două motoare, în limba ta</p>
+  <div class="badge"><span class="dot"></span> Grok + DeepSeek dual-engine</div>
+</div>
+
+<div class="cards">
+  <div class="card"><div class="ci">📋</div><h3>Documente & Vize</h3><p>Rezidență, permise de muncă, reunificare familială, apostile, conversie permis auto</p></div>
+  <div class="card"><div class="ci">💰</div><h3>Taxe & Finanțe</h3><p>Dubla impunere, rezidență fiscală, transfer pensii, alocații transfrontaliere</p></div>
+  <div class="card"><div class="ci">🏥</div><h3>Sănătate</h3><p>CEAM/EHIC, înregistrare medic, urgențe, transfer rețete, sănătate mintală</p></div>
+  <div class="card"><div class="ci">📚</div><h3>Educație & Copii</h3><p>Înscriere școală, recunoaștere diplomă, educație bilingvă, limba maternă</p></div>
+</div>
+
+<div class="demo-preview">
+  <div class="demo-box">
+    <span class="v">🌍 Întrebare:</span> M-am mutat în Germania, cum transfer pensia din România?<br><br>
+    <span class="w">📋 Pași verificați:</span><br>
+    &nbsp;&nbsp;1. <span class="g">✅</span> Obține formularul E 205 RO de la Casa de Pensii din România<br>
+    &nbsp;&nbsp;2. <span class="g">✅</span> Depune cerere la Deutsche Rentenversicherung cu perioadele lucrate<br>
+    &nbsp;&nbsp;3. <span class="g">✅</span> Reg. UE 883/2004 — perioadele se cumulează automat<br>
+    &nbsp;&nbsp;4. <span class="w">⚠️</span> Consultă un consilier specializat pentru calcul exact<br>
+    <span class="v">📞 Resurse: Casa de Pensii RO: 021.316.24.26 | DRV: 0800 1000 4800</span>
+  </div>
+</div>
+
+<div class="chat-section">
+  <h2>Întreabă despre viața în diasporă</h2>
+  <div class="chat-box">
+    <div id="messages">
+      <div class="msg system">🌍 amiExilAI — sfaturi verificate cu două motoare AI. 5 întrebări gratuite/zi.<br><em>Nu sunt avocat. Pentru cazuri specifice, consultă un specialist autorizat.</em></div>
+    </div>
+    <div class="input-row">
+      <textarea id="userInput" rows="1" maxlength="2000" placeholder="ex. Cum îmi recunosc diploma de licență în Spania?"></textarea>
+      <button id="sendBtn" onclick="sendMessage()">Trimite</button>
+    </div>
+  </div>
+  <p class="free-note">Gratuit: 5 întrebări/zi &nbsp;|&nbsp; <strong>Pro:</strong> nelimitat</p>
+  <div class="upgrade-row"><button class="upgrade-btn" onclick="upgrade()">🌍 Upgrade la Pro — €9.99/lună</button></div>
+</div>
+
+<div class="features">
+  <h2>Cum te poate ajuta amiExilAI</h2>
+  <div class="feat-grid">
+    <div class="feat"><h3>📋 Legal & Administrativ</h3><p>Vize, rezidență, reunificare, consulat, apostile, vot din străinătate</p></div>
+    <div class="feat"><h3>💰 Taxe & Finanțe</h3><p>Dubla impunere, cont bancar, transfer bani, pensii, asigurări sociale UE</p></div>
+    <div class="feat"><h3>🏥 Sănătate</h3><p>CEAM, medic de familie, urgențe, rețete, sănătate mintală în expatriere</p></div>
+    <div class="feat"><h3>📚 Educație</h3><p>Școală copii, recunoaștere diplome ENIC-NARIC, echivalări, bilingvism</p></div>
+    <div class="feat"><h3>🏠 Relocare Practică</h3><p>Locuință, utilități, asigurări, transport, telefonie, internet</p></div>
+    <div class="feat"><h3>❤️ Întoarcerea Acasă</h3><p>Re-integrare, proprietăți, deschidere firmă, transfer pensie înapoi</p></div>
+  </div>
+</div>
+
+<div class="compliance">
+  <p>AI conform cu legislația europeană</p>
+  <div class="compliance-badges">
+    <span class="cbadge" onclick="showModal('euai')">🇪🇺 EU AI Act</span>
+    <span class="cbadge" onclick="showModal('gdpr')">🛡️ GDPR</span>
+    <span class="cbadge" onclick="showModal('privacy')">🔒 Confidențialitate</span>
+    <span class="cbadge" onclick="showModal('terms')">📄 Termeni</span>
+  </div>
+</div>
+
+<footer>
+  &copy; 2025 amiExilAI &nbsp;|&nbsp; <a href="mailto:hello@amiexilai.com">Contact</a>
+  &nbsp;|&nbsp; <a href="#" onclick="showModal('privacy');return false">Confidențialitate</a>
+  &nbsp;|&nbsp; <a href="#" onclick="showModal('terms');return false">Termeni</a>
+  <br><br>
+  <span style="font-size:.7rem;color:#555">
+    amiExilAI este un instrument AI educativ — nu înlocuiește un avocat, consilier fiscal sau specialist în imigrare.<br>
+    EU AI Act (Reg. 2024/1689) Art. 50 — AI cu risc limitat, transparență completă.
+  </span>
+</footer>
+
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">&times;</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script>
+const API_BASE='https://amiexilai-api-production.up.railway.app';
+const FREE_LIMIT=5;
+const STORAGE_KEY='amiexilai_usage';
+
+function getUsage(){try{const d=JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}');const t=new Date().toISOString().slice(0,10);if(d.date!==t)return{date:t,count:0};return d}catch(e){return{date:new Date().toISOString().slice(0,10),count:0}}}
+function setUsage(u){localStorage.setItem(STORAGE_KEY,JSON.stringify(u))}
+
+function addMsg(text,role,meta){const d=document.getElementById('messages');const m=document.createElement('div');m.className='msg '+role;m.innerHTML=text.replace(/\n/g,'<br>');if(meta){const s=document.createElement('div');s.className='meta';s.textContent=meta;m.appendChild(s)}d.appendChild(m);d.scrollTop=d.scrollHeight}
+
+async function sendMessage(){
+const inp=document.getElementById('userInput'),btn=document.getElementById('sendBtn');
+const msg=inp.value.trim();if(!msg)return;
+const usage=getUsage();
+if(usage.count>=FREE_LIMIT){addMsg('Limita zilnică atinsă. Fă upgrade la Pro pentru acces nelimitat.','system');return}
+addMsg(msg,'user');inp.value='';btn.disabled=true;
+try{
+const r=await fetch(API_BASE+'/companion/exil/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:msg,locale:navigator.language?.slice(0,2)||'RO'})});
+if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error(e.detail||r.statusText)}
+const d=await r.json();
+const meta=d.concordance!=null?`Motor: ${d.engine} | Concordanță: ${(d.concordance*100).toFixed(0)}% | ${d.decision} | ${d.latency_s.toFixed(1)}s`:`Motor: ${d.engine}`;
+addMsg(d.response,'assistant',meta);
+usage.count++;setUsage(usage);
+}catch(e){addMsg('Eroare conexiune: '+e.message,'system')}
+btn.disabled=false;inp.focus()
+}
+
+document.getElementById('userInput').addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage()}});
+
+async function upgrade(){
+try{const r=await fetch(API_BASE+'/create-checkout-session',{method:'POST'});
+if(!r.ok)throw new Error('Checkout indisponibil');
+const d=await r.json();window.location.href=d.url}catch(e){alert('Checkout indisponibil: '+e.message)}
+}
+
+const modals={
+euai:`<h2>🇪🇺 Conformitate EU AI Act</h2><p>amiExilAI este clasificat ca <strong>AI cu risc limitat</strong> conform Regulamentului (UE) 2024/1689.</p><ul><li><strong>Art. 50 Transparență:</strong> Utilizatorii sunt informați clar că interacționează cu un sistem AI</li><li><strong>Verificare dual-engine:</strong> Două modele AI independente verifică încrucișat fiecare răspuns</li><li><strong>Fără decizii autonome:</strong> Ghid educativ — nu ia decizii legale sau administrative</li><li><strong>Supraveghere umană:</strong> Utilizatorii decid dacă aplică sfaturile</li></ul><p>Furnizor: amiExilAI, Timișoara, România, UE.</p>`,
+gdpr:`<h2>🛡️ Conformitate GDPR</h2><p>Protecția datelor conform Regulamentului (UE) 2016/679:</p><ul><li><strong>Fără stocare chat:</strong> Întrebările sunt procesate în timp real, fără persistare</li><li><strong>Fără profile utilizator:</strong> Nu e nevoie de cont pentru nivelul gratuit</li><li><strong>Date minimale:</strong> Doar IP pentru limitare rată (nereținut)</li><li><strong>Fără cookie-uri:</strong> Doar localStorage pentru contor zilnic</li><li><strong>Plăți Stripe:</strong> Gestionate de Stripe Inc. (certificat PCI DSS)</li><li><strong>Cereri date:</strong> Scrie la privacy@amiexilai.com</li><li><strong>Drept de ștergere:</strong> Nu există date de șters — stateless prin design</li></ul>`,
+privacy:`<h2>🔒 Politica de Confidențialitate</h2><p><strong>amiExilAI</strong> — actualizat: iulie 2025</p><ul><li><strong>Date colectate:</strong> Niciunele persistent. Chat-ul e stateless.</li><li><strong>localStorage:</strong> Doar contor zilnic (nu e transmis niciodată)</li><li><strong>Plăți:</strong> Procesate integral de Stripe. Nu vedem niciodată datele cardului.</li><li><strong>Analytics:</strong> Niciunul. Fără pixeli, fără cookie-uri.</li><li><strong>Terți:</strong> Grok (xAI) și DeepSeek procesează în timp real fără retenție</li><li><strong>Securitate:</strong> Tot traficul e criptat TLS.</li></ul><p>Contact: privacy@amiexilai.com</p>`,
+terms:`<h2>📄 Termeni și Condiții</h2><p><strong>amiExilAI</strong> — actualizat: iulie 2025</p><ul><li><strong>Serviciul:</strong> Instrument AI educativ pentru diaspora</li><li><strong>Nu înlocuiește:</strong> Avocați, consilieri fiscali, specialiști în imigrare</li><li><strong>Fără garanție:</strong> Sfaturile sunt educative — verifică cu profesioniști autorizați</li><li><strong>Utilizare interzisă:</strong> Imigrare ilegală, fraudă documentară</li><li><strong>Nivel gratuit:</strong> 5 întrebări/zi, fără cont</li><li><strong>Nivel Pro:</strong> €9.99/lună, anulare oricând prin portalul Stripe</li><li><strong>Responsabilitate:</strong> Nu suntem responsabili pentru decizii luate pe baza sfaturilor</li></ul><p>Contact: hello@amiexilai.com</p>`
+};
+function showModal(k){document.getElementById('modalContent').innerHTML=modals[k]||'';document.getElementById('modalOverlay').classList.add('active')}
+function closeModal(){document.getElementById('modalOverlay').classList.remove('active')}
+</script>
+</body>
+</html>
